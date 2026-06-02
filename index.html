@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracker de Metas 2026</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="header-content">
+        <h1>Metas 2026</h1>
+        <div class="header-actions">
+          <span id="save-status" class="save-status"></span>
+          <button id="settings-btn" class="btn-icon" title="Configurações">&#9881;</button>
+        </div>
+      </div>
+    </header>
+
+    <div id="settings-panel" class="settings-panel hidden">
+      <h2>Configurações</h2>
+      <div class="settings-grid">
+        <label>
+          GitHub Token
+          <input type="password" id="gh-token" placeholder="ghp_...">
+        </label>
+        <label>
+          Owner (usuário GitHub)
+          <input type="text" id="gh-owner" placeholder="seu-usuario">
+        </label>
+        <label>
+          Repositório
+          <input type="text" id="gh-repo" placeholder="goal-tracker">
+        </label>
+        <label>
+          Branch
+          <input type="text" id="gh-branch" placeholder="main">
+        </label>
+      </div>
+      <div class="settings-actions">
+        <button id="save-settings-btn" class="btn-primary">Salvar e sincronizar</button>
+        <button id="sync-btn" class="btn-secondary">Sincronizar agora</button>
+      </div>
+      <p class="settings-hint">
+        O token é salvo apenas no localStorage do navegador e enviado somente à API do GitHub.
+      </p>
+    </div>
+
+    <section class="summary-section">
+      <div class="summary-card">
+        <span class="summary-value" id="total-goals">0</span>
+        <span class="summary-label">Total de metas</span>
+      </div>
+      <div class="summary-card highlight">
+        <span class="summary-value" id="completed-goals">0</span>
+        <span class="summary-label">Concluídas</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-value" id="progress-pct">0%</span>
+        <span class="summary-label">Progresso geral</span>
+      </div>
+    </section>
+
+    <div class="global-progress">
+      <div class="progress-bar">
+        <div class="progress-fill" id="global-bar" style="width:0%"></div>
+      </div>
+    </div>
+
+    <main id="months-container"></main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
