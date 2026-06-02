@@ -1,12 +1,54 @@
+/* ── Tokens ───────────────────────────────────────────────────────────────── */
+:root {
+  --bg:             #f5f6f7;
+  --surface:        #ffffff;
+  --surface-hover:  #fafafa;
+  --border:         #e4e4e7;
+  --separator:      #f5f5f5;
+  --input-bg:       #fafafa;
+
+  --text:           #1a1a2e;
+  --text-dim:       #666;
+  --text-muted:     #999;
+  --text-faint:     #aaa;
+  --text-done:      #bbb;
+
+  --progress-track: #eeeeee;
+  --color-primary:  #185FA5;
+  --color-success:  #2e7d32;
+  --color-error:    #c62828;
+}
+
+body.dark {
+  --bg:             #0f0f13;
+  --surface:        #17171e;
+  --surface-hover:  #1e1e27;
+  --border:         #2a2a38;
+  --separator:      #1e1e27;
+  --input-bg:       #0f0f13;
+
+  --text:           #e0e0ec;
+  --text-dim:       #8a8a9a;
+  --text-muted:     #606070;
+  --text-faint:     #4a4a5a;
+  --text-done:      #3a3a4a;
+
+  --progress-track: #2a2a38;
+  --color-primary:  #4d9de0;
+  --color-success:  #66bb6a;
+  --color-error:    #ef5350;
+}
+
 /* ── Reset & Base ─────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #f5f6f7;
-  color: #1a1a2e;
+  background: var(--bg);
+  color: var(--text);
   font-size: 15px;
   line-height: 1.5;
+  transition: background 0.2s, color 0.2s;
 }
 
 #app {
@@ -19,11 +61,12 @@ body {
 header {
   position: sticky;
   top: 0;
-  background: #fff;
-  border-bottom: 1px solid #e4e4e7;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
   z-index: 100;
   margin: 0 -16px;
   padding: 0 16px;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .header-content {
@@ -42,42 +85,42 @@ h1 {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 4px;
 }
 
 .btn-icon {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 20px;
-  padding: 4px 6px;
+  font-size: 18px;
+  padding: 5px 7px;
   border-radius: 6px;
-  opacity: 0.6;
-  transition: opacity 0.15s, background 0.15s;
+  color: var(--text-dim);
+  transition: color 0.15s, background 0.15s;
   line-height: 1;
 }
-.btn-icon:hover { opacity: 1; background: #f0f0f0; }
+.btn-icon:hover { color: var(--text); background: var(--separator); }
 
 /* ── Save Status ──────────────────────────────────────────────────────────── */
 .save-status {
   font-size: 12px;
   font-weight: 500;
-  min-width: 0;
   max-width: 240px;
   text-align: right;
-  transition: opacity 0.2s;
+  margin-right: 8px;
 }
-.save-status.saving { color: #888; }
-.save-status.saved  { color: #2e7d32; }
-.save-status.error  { color: #c62828; font-size: 11px; }
+.save-status.saving { color: var(--text-muted); }
+.save-status.saved  { color: var(--color-success); }
+.save-status.error  { color: var(--color-error); font-size: 11px; }
 
 /* ── Settings Panel ───────────────────────────────────────────────────────── */
 .settings-panel {
-  background: #fff;
-  border: 1px solid #e4e4e7;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 20px;
   margin: 16px 0;
+  transition: background 0.2s, border-color 0.2s;
 }
 .settings-panel.hidden { display: none; }
 
@@ -85,7 +128,7 @@ h1 {
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 14px;
-  color: #333;
+  color: var(--text-dim);
 }
 
 .settings-grid {
@@ -101,22 +144,24 @@ h1 {
   gap: 5px;
   font-size: 11px;
   font-weight: 600;
-  color: #666;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.4px;
 }
 
 .settings-grid input {
   padding: 8px 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 13px;
   font-family: inherit;
   outline: none;
-  transition: border-color 0.15s;
-  background: #fafafa;
+  background: var(--input-bg);
+  color: var(--text);
+  transition: border-color 0.15s, background 0.2s, color 0.2s;
 }
-.settings-grid input:focus { border-color: #185FA5; background: #fff; }
+.settings-grid input:focus { border-color: var(--color-primary); background: var(--surface); }
+.settings-grid input::placeholder { color: var(--text-faint); }
 
 .settings-actions {
   display: flex;
@@ -125,7 +170,7 @@ h1 {
 }
 
 .btn-primary {
-  background: #185FA5;
+  background: var(--color-primary);
   color: #fff;
   border: none;
   border-radius: 7px;
@@ -134,14 +179,14 @@ h1 {
   font-weight: 500;
   cursor: pointer;
   font-family: inherit;
-  transition: background 0.15s;
+  transition: opacity 0.15s;
 }
-.btn-primary:hover { background: #145088; }
+.btn-primary:hover { opacity: 0.85; }
 
 .btn-secondary {
   background: none;
-  color: #185FA5;
-  border: 1.5px solid #185FA5;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
   border-radius: 7px;
   padding: 7px 16px;
   font-size: 13px;
@@ -150,12 +195,12 @@ h1 {
   font-family: inherit;
   transition: background 0.15s;
 }
-.btn-secondary:hover { background: #eef4fb; }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-primary) 8%, transparent); }
 
 .settings-hint {
   margin-top: 12px;
   font-size: 11px;
-  color: #aaa;
+  color: var(--text-faint);
 }
 
 /* ── Summary Cards ────────────────────────────────────────────────────────── */
@@ -167,20 +212,21 @@ h1 {
 }
 
 .summary-card {
-  background: #fff;
-  border: 1px solid #e4e4e7;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 16px;
   text-align: center;
+  transition: background 0.2s, border-color 0.2s;
 }
-.summary-card.highlight { border-color: #185FA5; }
+.summary-card.highlight { border-color: var(--color-primary); }
 
 .summary-value {
   display: block;
   font-size: 30px;
   font-weight: 700;
   letter-spacing: -1.5px;
-  color: #185FA5;
+  color: var(--color-primary);
   line-height: 1.1;
 }
 
@@ -189,41 +235,37 @@ h1 {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #999;
+  color: var(--text-muted);
   margin-top: 4px;
 }
 
 /* ── Progress Bars ────────────────────────────────────────────────────────── */
-.global-progress {
-  margin-bottom: 24px;
-}
+.global-progress { margin-bottom: 24px; }
 
 .progress-bar {
-  background: #eee;
+  background: var(--progress-track);
   border-radius: 4px;
   height: 5px;
   overflow: hidden;
+  transition: background 0.2s;
 }
-
-.progress-bar.small {
-  width: 56px;
-  height: 4px;
-}
+.progress-bar.small { width: 56px; height: 4px; }
 
 .progress-fill {
   height: 100%;
-  background: #185FA5;
+  background: var(--color-primary);
   border-radius: 4px;
   transition: width 0.35s ease;
 }
 
 /* ── Month Cards ──────────────────────────────────────────────────────────── */
 .month-card {
-  background: #fff;
-  border: 1px solid #e4e4e7;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
   margin-bottom: 10px;
   overflow: hidden;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .month-header {
@@ -236,7 +278,7 @@ h1 {
   user-select: none;
   transition: background 0.1s;
 }
-.month-header:hover { background: #fafafa; }
+.month-header:hover { background: var(--surface-hover); }
 
 .month-title {
   display: flex;
@@ -251,7 +293,7 @@ h1 {
 
 .month-period {
   font-size: 11px;
-  color: #999;
+  color: var(--text-muted);
 }
 
 .month-meta {
@@ -264,13 +306,13 @@ h1 {
 .month-count {
   font-size: 12px;
   font-weight: 600;
-  color: #666;
+  color: var(--text-dim);
   white-space: nowrap;
 }
 
 .chevron {
   font-size: 14px;
-  color: #bbb;
+  color: var(--text-faint);
   transition: transform 0.2s;
   display: inline-block;
   line-height: 1;
@@ -280,30 +322,28 @@ h1 {
 /* ── Month Body ───────────────────────────────────────────────────────────── */
 .month-body {
   padding: 6px 16px 16px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--separator);
+  transition: border-color 0.2s;
 }
 .month-body.collapsed { display: none; }
 
-.category {
-  margin-top: 14px;
-}
+.category { margin-top: 14px; }
 
 .category-label {
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  color: #aaa;
+  color: var(--text-faint);
   margin-bottom: 8px;
 }
 
-.goals-list {
-  list-style: none;
-}
+.goals-list { list-style: none; }
 
 .goal-item {
   padding: 6px 0;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid var(--separator);
+  transition: border-color 0.2s;
 }
 .goal-item:last-child { border-bottom: none; }
 
@@ -320,28 +360,26 @@ h1 {
   margin-top: 2px;
   flex-shrink: 0;
   cursor: pointer;
-  accent-color: #2e7d32;
+  accent-color: var(--color-success);
 }
 
 .goal-item span {
   font-size: 14px;
-  color: #222;
+  color: var(--text);
   transition: color 0.15s;
 }
 
 .goal-item.done span {
   text-decoration: line-through;
-  color: #bbb;
+  color: var(--text-done);
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 500px) {
   .settings-grid { grid-template-columns: 1fr; }
-
   .summary-section { gap: 8px; }
   .summary-value { font-size: 24px; }
   .summary-label { font-size: 10px; }
-
   .progress-bar.small { width: 40px; }
   .month-name { font-size: 13px; }
   .month-count { display: none; }

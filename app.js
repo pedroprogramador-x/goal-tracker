@@ -331,7 +331,24 @@ document.getElementById('sync-btn').addEventListener('click', () => {
   fetchProgress();
 });
 
+// ── Tema ─────────────────────────────────────────────────────────────────────
+
+const themeBtn = document.getElementById('theme-btn');
+
+function applyTheme(dark) {
+  document.body.classList.toggle('dark', dark);
+  themeBtn.textContent = dark ? '☀' : '☾'; // ☀ / ☾
+  themeBtn.title = dark ? 'Tema claro' : 'Tema escuro';
+}
+
+themeBtn.addEventListener('click', () => {
+  const isDark = !document.body.classList.contains('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  applyTheme(isDark);
+});
+
 // ── Init ─────────────────────────────────────────────────────────────────────
 
+applyTheme(localStorage.getItem('theme') === 'dark');
 renderAll();
 fetchProgress();
